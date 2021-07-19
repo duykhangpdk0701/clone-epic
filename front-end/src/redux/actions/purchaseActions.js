@@ -5,7 +5,7 @@ export const fetchPurchase = async (dispatch, userId) => {
   const res = await axios
     .post(`${process.env.REACT_APP_URL_SERVER}/purchase`, { userId })
     .catch((e) => console.log("error: " + e));
-
+  console.log(res.data);
   dispatch(setPurchase(res.data));
 };
 
@@ -15,7 +15,7 @@ export const purchase = (userId, productId) => ({
 });
 
 export const setPurchase = (purchase) => ({
-  type: actions.PURCHASE,
+  type: actions.SET_PURCHASE,
   payload: purchase,
 });
 

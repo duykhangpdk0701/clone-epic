@@ -11,10 +11,20 @@ import {
 const ItemLogged = (props) => {
   const dispatch = useDispatch();
   const productId = props.data.id;
+  const userId = useSelector((state) => state.login.user.ids);
   const idProductInWishlist = useSelector((state) =>
     state.wishlist.map((item) => item.productId),
   );
-  const userId = useSelector((state) => state.login.user.ids);
+
+  const idProductInPurchase = useSelector((state) =>
+    state.purchase.map((item) => item.productId),
+  );
+
+  const existInPurchase = useMemo(
+    () => idProductInPurchase.includes(productId),
+    [idProductInPurchase, productId],
+  );
+
   const existInWishlist = useMemo(
     () => idProductInWishlist.includes(productId),
     [idProductInWishlist, productId],
@@ -46,7 +56,11 @@ const ItemLogged = (props) => {
           {props.data.price === 0 ? "Free" : `${props.data.price}$`}
         </ProductPrice>
       </LinkProduct>
-      {existInWishlist ? (
+      {existInPurchase ? (
+        <Btn className="item-btn purchased-btn" onClick={handleRemoveWishlist}>
+          v
+        </Btn>
+      ) : existInWishlist ? (
         <Btn className="item-btn" onClick={handleRemoveWishlist}>
           x
         </Btn>
@@ -72,6 +86,12 @@ const Container = styled.div`
   :hover .item-btn {
     opacity: 1;
     pointer-events: all;
+  }
+
+  :hover .purchased-btn {
+    opacity: 0.9;
+    pointer-events: all;
+    cursor: default;
   }
 
   :hover .img-hover-effect {

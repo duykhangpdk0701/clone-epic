@@ -6,6 +6,7 @@ const getDate = require("../helpers/getCurrentDate");
 
 router.post("/", async (req, res) => {
   const userId = req.body.userId;
+  console.log(userId);
   const sql = "SELECT * FROM purchase WHERE userId =?;";
 
   mysqlConn.query(sql, [userId], (err, result) => {

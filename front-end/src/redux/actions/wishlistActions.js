@@ -5,7 +5,7 @@ export const fetchWishlist = async (dispatch, userId) => {
   const listWishlist = await axios
     .post(`${process.env.REACT_APP_URL_SERVER}/wishlist`, { userId })
     .catch((e) => console.log("error: " + e));
-  return dispatch(setWishlist(listWishlist.data));
+  dispatch(setWishlist(listWishlist.data));
 };
 
 export const loadingSpinner = () => ({

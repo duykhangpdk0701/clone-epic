@@ -14,13 +14,13 @@ export const fetchProducts = async (dispatch) => {
   dispatch(setProducts(listProductsAfterAddProperty));
 };
 
-// export const fetchProductsWithUser = async (dispatch, userId) => {
-//   const res = await axios
-//     .post(`${process.env.REACT_APP_URL_SERVER}/products`, { userId: userId })
-//     .catch((e) => console.log("error: " + e));
-//   const products = res.data.map((item) => ({ ...item, isMatchSearch: true }));
-//   dispatch(setProducts(products));
-// };
+export const fetchProductsWithUser = async (dispatch, userId) => {
+  const res = await axios
+    .post(`${process.env.REACT_APP_URL_SERVER}/products`, { userId: userId })
+    .catch((e) => console.log("error: " + e));
+  const products = res.data.map((item) => ({ ...item, isMatchSearch: true }));
+  dispatch(setProducts(products));
+};
 
 export const setProducts = (products) => ({
   type: actions.SET_PRODUCT,

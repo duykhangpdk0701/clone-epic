@@ -13,12 +13,14 @@ import {
   sortByHighToLow,
   sortByAlphabetical,
 } from "../../../redux/actions/productsActions";
+import { fetchPurchase } from "../../../redux/actions/purchaseActions";
 import Loading from "./LoadingItem";
 
 const RenderItem = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
   const isLogged = useSelector((state) => state.login.isLogin);
+  const userId = useSelector((state) => state.login.user.ids);
   const location = useLocation();
   const paramUrl = useMemo(
     () => new URLSearchParams(location.search),
@@ -28,6 +30,10 @@ const RenderItem = () => {
   useEffect(() => {
     fetchProducts(dispatch);
   }, [dispatch]);
+
+  useEffect(() => {
+    fetchPurchase(dispatch, userId);
+  }, [dispatch, userId]);
 
   useEffect(() => {
     switch (paramUrl.get("sortBy")) {
