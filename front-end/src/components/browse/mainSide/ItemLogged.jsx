@@ -7,6 +7,11 @@ import {
   removeWishlist,
   addWishlist,
 } from "../../../redux/actions/wishlistActions";
+import {
+  Purchased,
+  WishlistAdd,
+  WishlistRemove,
+} from "../../../assets/IconCircle";
 
 const ItemLogged = (props) => {
   const dispatch = useDispatch();
@@ -58,15 +63,15 @@ const ItemLogged = (props) => {
       </LinkProduct>
       {existInPurchase ? (
         <Btn className="item-btn purchased-btn" onClick={handleRemoveWishlist}>
-          v
+          <Purchased />
         </Btn>
       ) : existInWishlist ? (
         <Btn className="item-btn" onClick={handleRemoveWishlist}>
-          x
+          <WishlistRemove />
         </Btn>
       ) : (
         <Btn className="item-btn" onClick={handleAddWishlist}>
-          +
+          <WishlistAdd />
         </Btn>
       )}
     </Container>
@@ -165,6 +170,9 @@ const Btn = styled.button`
   top: 0;
   right: 0;
   cursor: pointer;
+  background: none;
+  outline: none;
+  border: none;
 `;
 
 export default ItemLogged;
