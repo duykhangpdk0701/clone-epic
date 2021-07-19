@@ -1,0 +1,3 @@
+export const PURCHASE = "PURCHASE";
+export const SET_PURCHASE = "SET_PURCHASE";
+export const REMOVE_PURCHASE = "REMOVE_PURCHASE";
