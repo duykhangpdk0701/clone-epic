@@ -1,52 +1,11 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as colors from "../../../style/color";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  removeWishlist,
-  addWishlist,
-} from "../../../redux/actions/wishlistActions";
-import {
-  Purchased,
-  WishlistAdd,
-  WishlistRemove,
-} from "../../../assets/IconCircle";
+
+import WishBtn from "./WishBtn";
 
 const ItemLogged = (props) => {
-  const dispatch = useDispatch();
-  const productId = props.data.id;
-  const userId = useSelector((state) => state.login.user.ids);
-  const idProductInWishlist = useSelector((state) =>
-    state.wishlist.map((item) => item.productId),
-  );
-
-  const idProductInPurchase = useSelector((state) =>
-    state.purchase.map((item) => item.productId),
-  );
-
-  const existInPurchase = useMemo(
-    () => idProductInPurchase.includes(productId),
-    [idProductInPurchase, productId],
-  );
-
-  const existInWishlist = useMemo(
-    () => idProductInWishlist.includes(productId),
-    [idProductInWishlist, productId],
-  );
-
-  const handleAddWishlist = async () => {
-    dispatch(addWishlist(userId, productId));
-  };
-
-  const handleRemoveWishlist = async () => {
-    dispatch(removeWishlist(userId, productId));
-  };
-
-  const handleTesting = () => {
-    console.log(existInWishlist);
-  };
-
   return (
     <Container>
       <LinkProduct as={Link} to={`product/${props.data.id}`}>
@@ -61,19 +20,7 @@ const ItemLogged = (props) => {
           {props.data.price === 0 ? "Free" : `${props.data.price}$`}
         </ProductPrice>
       </LinkProduct>
-      {existInPurchase ? (
-        <Btn className="item-btn purchased-btn" onClick={handleRemoveWishlist}>
-          <Purchased />
-        </Btn>
-      ) : existInWishlist ? (
-        <Btn className="item-btn" onClick={handleRemoveWishlist}>
-          <WishlistRemove />
-        </Btn>
-      ) : (
-        <Btn className="item-btn" onClick={handleAddWishlist}>
-          <WishlistAdd />
-        </Btn>
-      )}
+      <WishBtn productId={props.data.id} />
     </Container>
   );
 };
@@ -161,18 +108,6 @@ const ProductPrice = styled.span`
   font-weight: 600;
   margin-top: 15px;
   font-size: 18px;
-`;
-
-const Btn = styled.button`
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-  background: none;
-  outline: none;
-  border: none;
 `;
 
 export default ItemLogged;

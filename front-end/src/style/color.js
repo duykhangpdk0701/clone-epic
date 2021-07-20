@@ -5,3 +5,4 @@ export const tertiaryBlack = "#202020";
 export const textWhileActive = "#ffffff";
 export const textWhileNonActive = "#a0a0a0";
 export const primaryBlue = "#007bff";
+export const primaryGreen = "#2ECC71";

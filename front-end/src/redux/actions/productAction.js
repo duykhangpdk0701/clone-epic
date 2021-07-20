@@ -7,7 +7,7 @@ export const fetchProduct = async (id, dispatch) => {
     .catch((e) => {
       console.log("error: " + e);
     });
-  //api return an array with 1 item so that is why i access first item in array
+  //api return an array with 1 item so that is why I access first item in array
   dispatch(setProduct(product.data[0]));
 };
 

@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const mysqlConn = require("../config/connectMySql");
 const User = require("../models/userModels");
 const hashPassword = require("../helpers/hashPassword");
+const { route } = require("./purchase");
 
 router.get("/", (req, res) => {
   const sql = "SELECT * FROM users";
@@ -73,6 +74,12 @@ router.post("/resister", async (req, res) => {
     if (err) throw err;
     console.log(reqHashPassword);
   });
+});
+
+router.post("/user/change-password", async (req, res) => {
+  const userId = req.body.userId;
+  const userPassword = req.body.userId;
+  const newUserPassword = req.body.newUserPassword;
 });
 
 router.get("/:id", (req, res) => {
