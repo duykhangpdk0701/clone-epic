@@ -12,7 +12,7 @@ import Wishlist from "./components/wishlist/Index";
 import Coupons from "./components/Coupons";
 import Browse from "./components/browse/Index";
 import Login from "./pages/Login";
-import Product from "./pages/Product";
+import Product from "./components/product/Index";
 //import color
 import { primaryBlack } from "./style/color";
 //redux
@@ -32,7 +32,6 @@ const App = () => {
       const username = localStorageUsername;
       const password = localStoragePassword;
       getLogin(dispatch, username, password);
-      console.log("hello my name is Khang");
     }
   }, [dispatch]);
 
@@ -50,7 +49,7 @@ const App = () => {
           <FullNavRoute path="/coupons" component={Coupons} />
           <NavRoute path="/account" component={Account} />
           <Route path="/login" component={Login} />
-          <NavRoute path="/product/:id" component={Product} />
+          <FullNavRoute path="/product/:id" component={Product} />
         </Switch>
       </Container>
     </Router>
