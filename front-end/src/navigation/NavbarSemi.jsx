@@ -4,13 +4,14 @@ import { NavLink } from "react-router-dom";
 import { RiSearchLine } from "react-icons/ri";
 import { GrFormClose } from "react-icons/gr";
 import * as color from "../style/color";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from "../redux/actions/productsActions";
 
 const NavbarSemi = () => {
   const dispatch = useDispatch();
   const [resultSearch, setResultSearch] = useState("");
   const linkActive = { color: color.textWhileActive, cursor: "default" };
+  const amountOfWishlist = useSelector((state) => state.wishlist.length);
 
   const handleSearchBar = (e) => {
     setResultSearch(e.target.value);
@@ -40,7 +41,7 @@ const NavbarSemi = () => {
             </SemiNavLink>
             <WishlistCountContainer>
               <div className="wishlist-notification"></div>
-              <span>5</span>
+              <span>{amountOfWishlist}</span>
             </WishlistCountContainer>
           </div>
         </SemiNavLeftContainer>

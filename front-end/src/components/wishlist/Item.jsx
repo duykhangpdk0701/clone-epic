@@ -2,28 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as colors from "../../style/color";
-import { useDispatch } from "react-redux";
-import { removeWishlist } from "../../redux/actions/wishlistActions";
 
 const Item = (props) => {
-  const dispatch = useDispatch();
-
-  const handleAddWishlist = (e) => {
-    console.log("hello my name is Khang");
-    dispatch(removeWishlist(e.id));
-  };
+  const infoProductInWishlist = props.data;
 
   return (
     <Container>
-      <OuterLink to={`/product/${props.data.id}`}></OuterLink>
-      <TitleImgWrapper>
-        <Img src={props.data.imgBrowseUrl} />
-        <Title>{props.data.name}</Title>
-      </TitleImgWrapper>
-      <PriceWrapper>
-        <Price>{props.data.price}</Price>
-      </PriceWrapper>
-      <ActionImgWrapper></ActionImgWrapper>
+      <OuterLink to={`/product/${infoProductInWishlist.productId}`}>
+        <TitleImgWrapper>
+          <Img src={infoProductInWishlist.imgBrowseUrl} />
+          <Title>{infoProductInWishlist.name}</Title>
+        </TitleImgWrapper>
+        <PriceWrapper>
+          <Price>{infoProductInWishlist.price}</Price>
+        </PriceWrapper>
+        <ActionImgWrapper></ActionImgWrapper>
+      </OuterLink>
     </Container>
   );
 };

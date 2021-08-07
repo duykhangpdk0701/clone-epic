@@ -5,10 +5,10 @@ const getDate = require("../helpers/getCurrentDate");
 
 router.post("/", async (req, res) => {
   const userId = req.body.userId;
-  const sql = `SELECT * FROM wishlist WHERE wishlist.userId = ?`;
+  const sql = `SELECT * FROM wishlist LEFT JOIN products ON wishlist.productId = products.id WHERE wishlist.userId = ?`;
 
   mysqlConn.query(sql, [userId], (err, result) => {
-    if (err) throw err;
+    if (err) res.send({ message: "fail" });
     res.send(result);
   });
 });
