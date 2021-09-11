@@ -2,15 +2,13 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+//import child component
+import FirstContent from "./FirstContent";
+
 //color
 import * as colors from "../../style/color";
 //redux action
 import { fetchProduct } from "../../redux/actions/productAction";
-import {
-  addWishlist,
-  removeWishlist,
-} from "../../redux/actions/wishlistActions";
-import { purchase } from "../../redux/actions/purchaseActions";
 
 const Product = () => {
   const { id } = useParams();
@@ -22,10 +20,6 @@ const Product = () => {
     fetchProduct(id, dispatch);
   }, [id, dispatch]);
 
-  const handleAddWishlist = (e) => {
-    addWishlist(userId, product.id);
-  };
-
   return (
     <Section>
       <Container>
@@ -33,8 +27,7 @@ const Product = () => {
         <HeadLineContainer>
           <HeadLine>{product.name}</HeadLine>
         </HeadLineContainer>
-        <h1>{product.id}</h1>
-        <h1>{userId}</h1>
+        <FirstContent product={product} userId={userId} />
       </Container>
     </Section>
   );
