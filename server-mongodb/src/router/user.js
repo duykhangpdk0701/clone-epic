@@ -1,23 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../model/User");
+const userController = require("../controller/user");
 
-router.get("/addUser", async (req, res) => {
-  res.send("this is addUser Page");
-});
+router.post("/register", userController.userRegister);
 
-router.post("/addUser", async (req, res) => {
-  const user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-  });
-
-  try {
-    const savedUser = await user.save(() => console.log("inserted to db"));
-    res.json(savedUser);
-  } catch (err) {
-    res.json({ message: err });
-  }
-});
+router.get("/:id", userController.userFindById);
 
 module.exports = router;

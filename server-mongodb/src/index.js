@@ -1,22 +1,28 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
-//router
-const userRouter = require("./router/user");
 require("dotenv").config();
+//import connection DB
+const connectDB = require("./config/conn");
 
-app.use("/user", userRouter);
+//import router
+const userRouter = require("./router/user");
+const categoryRouter = require("./router/category");
 
+//use middleware
 app.use(express.json());
+
+//connect to DB
+connectDB();
+
+//middleware router
+app.use("/user", userRouter);
+app.use("/category", categoryRouter);
 
 app.get("/", (req, res) => {
   res.send("hello my name is Khang");
 });
 
-mongoose.connect(process.env.DB_CONNECTION, () => {
-  console.log("connected to DB");
-});
-
+//app port
 app.listen(process.env.PORT, () => {
   console.log("server is running...");
 });

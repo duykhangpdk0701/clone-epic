@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-mongoose.connect(process.env.CONN, () => {
-  console.log("connected to DB");
-});
+const connectDB = () => {
+  mongoose
+    .connect(process.env.DB_URL)
+    .then(() => console.log("connected to DB"))
+    .catch((err) => console.log(err));
+};
 
-module.exports = mongoose;
+module.exports = connectDB;
