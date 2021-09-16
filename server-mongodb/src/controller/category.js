@@ -1,6 +1,6 @@
 const Category = require("../model/Category");
 
-const getAllCategory = async (req, res) => {
+exports.getAllCategory = async (req, res) => {
   const category = new Category({
     name: req.body.name,
     description: req.body.description,
@@ -14,8 +14,7 @@ const getAllCategory = async (req, res) => {
     res.status(400).send({ message: err });
   }
 };
-
-const findCategoryById = async (req, res) => {
+exports.findCategoryById = async (req, res) => {
   try {
     const findCategory = await Category.findById(req.params.id);
     res.status(200).send(findCategory);
@@ -24,7 +23,7 @@ const findCategoryById = async (req, res) => {
   }
 };
 
-const findCategoryByName = async (req, res) => {
+exports.findCategoryByName = async (req, res) => {
   try {
     const fineCategory = await Category.findOne({ name: req.params.name });
     res.status(200).send(fineCategory);
@@ -33,7 +32,7 @@ const findCategoryByName = async (req, res) => {
   }
 };
 
-const updateCategoryByName = async (req, res) => {
+exports.updateCategoryByName = async (req, res) => {
   try {
     const updateCategory = await Category.where({ name: req.body.name }).update(
       { description: req.body.description },
@@ -42,11 +41,4 @@ const updateCategoryByName = async (req, res) => {
   } catch (err) {
     res.status(400).send({ message: err });
   }
-};
-
-module.exports = {
-  getAllCategory,
-  findCategoryById,
-  findCategoryByName,
-  updateCategoryByName,
 };

@@ -5,7 +5,7 @@ require("dotenv").config();
 const connectDB = require("./config/conn");
 
 //import router
-const userRouter = require("./router/user");
+const authRouter = require("./router/auth");
 const categoryRouter = require("./router/category");
 
 //use middleware
@@ -15,7 +15,7 @@ app.use(express.json());
 connectDB();
 
 //middleware router
-app.use("/user", userRouter);
+app.use("/auth", authRouter);
 app.use("/category", categoryRouter);
 
 app.get("/", (req, res) => {
