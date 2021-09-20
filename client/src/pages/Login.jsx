@@ -5,6 +5,18 @@ import * as colors from "../style/color";
 import { Link, useHistory } from "react-router-dom";
 import { postLogin } from "../redux/actions/loginActions";
 import { useDispatch } from "react-redux";
+
+
+
+
+const uiConfig = {
+  
+}
+
+
+
+
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

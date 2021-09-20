@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 //import model
 const User = require("../model/User");
 const authValidation = require("../validate/auth");
@@ -15,11 +16,13 @@ exports.userLogin = async (req, res) => {
   //checking if password correct
   const validPassword = await bcrypt.compare(password, user.password);
   if (!validPassword) return res.status(400).send("Password incorrect");
+  //create and assign a token
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
 
   try {
-    res.status(400).send("login success");
+    return res.header("auth-token", token).send(token);
   } catch (err) {
-    res.status(400).send({ message: err });
+    return res.status(400).send({ message: err });
   }
 };
 
@@ -48,7 +51,7 @@ exports.userRegister = async (req, res) => {
   });
 
   try {
-    const savedUser = await user.save(() => console.log("inserted to db"));
+    const savedUser = await user.save();
     res.status(200).send({ userId: savedUser._id });
   } catch (err) {
     res.status(400).send({ message: err });
@@ -57,18 +60,18 @@ exports.userRegister = async (req, res) => {
 
 exports.userFindById = async (req, res) => {
   try {
-    const findUser = User.findById(req.params.id);
-    res.status(200).send(findUser);
+    const findUser = await User.findById(req.params.id);
+    return res.status(200).send(findUser);
   } catch (err) {
-    res.status(400).send({ message: err });
+    return res.status(400).send({ message: err });
   }
 };
 
 exports.userFindByName = async (req, res) => {
   try {
-    const findUser = User.findOne({ name: req.params.name });
-    res.status(200).send(findUser);
+    const findUser = await User.findOne({ name: req.params.name });
+    return res.status(200).send(findUser);
   } catch (err) {
-    res.status(400).send({ message: err });
+    return res.status(400).send({ message: err });
   }
 };

@@ -20,7 +20,6 @@ app.use("/users", accountRouter);
 app.use("/products", productRouter);
 app.use("/wishlist", wishlistRoute);
 app.use("/purchase", purchaseRoute);
-app.use("/category");
 
 const PORT = process.env.PORT || 4000;
 
