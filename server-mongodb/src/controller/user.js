@@ -37,10 +37,14 @@ exports.userRegister = async (req, res) => {
   //checking if email exist
   const emailExist = await User.findOne({ email: req.body.email });
   if (emailExist) return res.status(400).send("Email already exist");
+  //compare password vs confirmPassword
+  console.log(req.body.password);
+  const isMatchPassword = req.body.password === req.body.confirmPassword;
+  if (!isMatchPassword)
+    return res.status(400).send("Password and Confirm password is not match");
   //hashing password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-
   //creating a new user
   const user = new User({
     username,

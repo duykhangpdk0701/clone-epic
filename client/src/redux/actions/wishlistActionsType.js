@@ -1,4 +1,0 @@
-export const SET_WISHLIST = "SET_WISHLIST";
-export const REMOVE_WISHLiST = "REMOVE_WISHLiST";
-export const ADD_WISHLIST = "ADD_WISHLIST";
-export const LOADING_SPINNER = "LOADING_SPINNER";

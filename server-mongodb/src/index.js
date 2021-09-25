@@ -10,6 +10,7 @@ const authRouter = require("./router/auth");
 const categoryRouter = require("./router/category");
 const post = require("./router/posts");
 const products = require("./router/products");
+
 //use middleware
 app.use(
   cors({

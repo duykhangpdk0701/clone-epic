@@ -1,30 +1,27 @@
 import axios from "axios";
-import queryString from "query-string";
 
 const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_URL_SERVER,
+  baseURL: process.env.REACT_APP_SERVER_URL,
   headers: {
-    "content-type": "application/json",
+    "Content-Type": "application/json",
   },
-
-  paramsSerializer: (params) => queryString.stringify(params),
 });
 
-axiosClient.interceptors.request.use(async (config) => {
-  //handle token
-  return config;
-});
-
-axiosClient.interceptors.response.use(
-  async (response) => {
-    if (response && response.data) {
-      return response.data;
-    }
-    return response;
+axiosClient.interceptors.request.use(
+  (config) => {
+    return config;
   },
   (error) => {
-    //handle error
-    throw error;
+    return Promise.reject(error);
+  },
+);
+
+axiosClient.interceptors.response.use(
+  (res) => {
+    return res.data;
+  },
+  (error) => {
+    return Promise.reject(error.response.data);
   },
 );
 

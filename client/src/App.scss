@@ -1,0 +1,21 @@
+@import "./style/color";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: $text-while-active;
+  background-color: $primary-black;
+}
+
+a {
+  color: $text-while-active;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

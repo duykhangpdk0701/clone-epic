@@ -26,3 +26,14 @@ exports.productAdd = async (req, res) => {
     res.status(400).send({ message: error });
   }
 };
+
+exports.findProductByCategoryIds = async (req, res) => {
+  try {
+    const findProducts = await ProductModel.find({
+      categoryId: { $all: [req.body.categoryIds] },
+    });
+    res.status(200).send(findProducts);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
