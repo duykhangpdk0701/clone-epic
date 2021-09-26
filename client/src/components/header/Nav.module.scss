@@ -1,0 +1,64 @@
+@import "../../style/color";
+
+.nav {
+  height: 51px;
+  background-color: $secondary-black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8%;
+}
+
+.logo {
+  height: 20px;
+}
+
+.dropdown_container {
+  position: relative;
+  height: 100%;
+}
+
+.username {
+  height: 100%;
+  min-width: 60px;
+  text-align: center;
+  padding: 0 1em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.username_icon {
+  fill: white;
+  color: white;
+}
+
+.dropdown_ul {
+  background-color: $secondary-black;
+  padding: 0 0.5em;
+  min-width: 130px;
+  position: absolute;
+  list-style: none;
+  top: 3.7rem;
+  right: 0;
+}
+
+.dropdown_li {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 500;
+  width: 100%;
+  height: 2rem;
+  text-align: center;
+  clear: both;
+
+  a {
+    color: $text-while-non-active;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: $text-while-active;
+  }
+}

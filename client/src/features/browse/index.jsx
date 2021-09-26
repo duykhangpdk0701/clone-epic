@@ -14,7 +14,8 @@ const Browse = () => {
       console.log(currentResult);
     };
     fetchProduct();
-  }, []);
+    return;
+  }, [dispatch]);
 
   return (
     <div>
