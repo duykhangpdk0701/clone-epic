@@ -16,11 +16,12 @@ const Hello = () => {
       <Link className="hello-link" to="/counter">
         Counter
       </Link>
+
       <Link className="hello-link" to="/auth/login">
         Login
       </Link>
 
-      <Link className="hello-link" to="/product/browse">
+      <Link className="hello-link" to="/store/browse">
         Browse
       </Link>
     </div>

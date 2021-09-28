@@ -37,3 +37,13 @@ exports.findProductByCategoryIds = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
+exports.getById = async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const findProduct = await ProductModel.findById(productId);
+    res.status(200).send(findProduct);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};

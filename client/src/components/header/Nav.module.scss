@@ -7,6 +7,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 8%;
+  position: sticky;
+  width: 100%;
 }
 
 .logo {
@@ -27,11 +29,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .username_icon {
   fill: white;
   color: white;
+}
+
+.username_text {
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .dropdown_ul {

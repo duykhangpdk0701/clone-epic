@@ -1,25 +1,35 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getAll } from "../../app/productsSlice";
+import style from "./browse.module.scss";
+import Item from "./Item";
 
 const Browse = () => {
   const dispatch = useDispatch();
+  const [product, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProducts = async () => {
       const action = getAll();
       const actionResult = await dispatch(action);
       const currentResult = unwrapResult(actionResult);
-      console.log(currentResult);
+      setProducts(currentResult);
     };
-    fetchProduct();
+    fetchProducts();
     return;
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={style.container}>
       <h1>this is browse page</h1>
+      <ul>
+        {product.map((element) => (
+          <li key={element._id.toString()}>
+            <Item data={element} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

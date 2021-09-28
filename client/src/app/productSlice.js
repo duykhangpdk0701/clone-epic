@@ -4,33 +4,33 @@ import productApi from "../api/productApi";
 const initialState = {
   loading: false,
   error: "",
-  current: [],
+  current: {},
 };
 
-export const getAll = createAsyncThunk("product/getAll", async (data) => {
-  const res = await productApi.getAll();
+export const getById = createAsyncThunk("product/getById", async (id) => {
+  const res = await productApi.getById(id);
   return res;
 });
 
-const productSlices = createSlice({
-  name: "products",
+const productSlice = createSlice({
+  name: "product",
   initialState,
   reducers: {},
 
   extraReducers: (builder) => {
     builder
-      .addCase(getAll.pending, (state) => {
+      .addCase(getById.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getAll.rejected, (state, action) => {
+      .addCase(getById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error;
       })
-      .addCase(getAll.fulfilled, (state, action) => {
+      .addCase(getById.fulfilled, (state, action) => {
         state.loading = false;
         state.current = action.payload;
       });
   },
 });
 
-export default productSlices.reducer;
+export default productSlice.reducer;

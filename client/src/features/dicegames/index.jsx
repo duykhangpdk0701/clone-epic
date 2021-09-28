@@ -4,7 +4,10 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 import Browse from "../browse";
 import Discover from "../discover";
 //import components
+import Product from "../product";
+//import  header
 import Nav from "../../components/header/Nav";
+import Footer from "../../components/footer";
 
 const Dicegames = () => {
   const match = useRouteMatch();
@@ -15,7 +18,9 @@ const Dicegames = () => {
       <Switch>
         <Route path={`${match.url}/browse`} component={Browse} />
         <Route path={`${match.url}/discover`} component={Discover} />
+        <Route path={`${match.url}/product/:id`} component={Product} />
       </Switch>
+      <Footer />
     </>
   );
 };
