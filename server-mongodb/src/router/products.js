@@ -8,5 +8,6 @@ router.post(
   "/find-product-by-ids",
   productsController.findProductByCategoryIds,
 );
+router.post("/update", productsController.updateProductById);
 
 module.exports = router;

@@ -47,3 +47,18 @@ exports.getById = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
+exports.updateProductById = async (req, res) => {
+  try {
+    const productId = req.body._id;
+    const productUpdate = req.body.update;
+    const updateProduct = await ProductModel.findByIdAndUpdate(
+      productId,
+      productUpdate,
+      { new: true },
+    );
+    res.status(200).send(updateProduct);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};

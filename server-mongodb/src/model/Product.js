@@ -7,6 +7,10 @@ const ProductSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    category: {
+      type: mongoose.Types.ObjectId,
+      required: true,
+    },
   },
   { timestamps: true },
 );
