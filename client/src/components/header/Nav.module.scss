@@ -22,7 +22,7 @@
 
 .username {
   height: 100%;
-  min-width: 60px;
+  min-width: 130px;
   text-align: center;
   padding: 0 1em;
   text-transform: uppercase;
@@ -36,12 +36,12 @@
 }
 
 .username_icon {
-  fill: white;
-  color: white;
+  margin-right: 5px;
+  font-size: 17px;
 }
 
 .username_text {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -51,8 +51,9 @@
   min-width: 130px;
   position: absolute;
   list-style: none;
-  top: 3.7rem;
+  top: 3.2rem;
   right: 0;
+  display: block;
 }
 
 .dropdown_li {
@@ -72,4 +73,8 @@
     text-decoration: none;
     color: $text-while-active;
   }
+}
+
+.dropdown_container:hover + .dropdown_ul {
+  display: block;
 }

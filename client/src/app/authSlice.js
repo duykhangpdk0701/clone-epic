@@ -3,7 +3,7 @@ import authApi from "../api/authApi";
 
 const initialState = {
   loading: false,
-  current: "",
+  currentUser: "",
   error: "",
 };
 
@@ -44,7 +44,7 @@ export const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        state.current = action.payload;
+        state.currentUser = action.payload.user;
       })
       //register
       .addCase(register.pending, (state) => {
@@ -56,7 +56,7 @@ export const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
-        state.current = action.payload;
+        state.currentUser = action.payload;
       });
   },
 });

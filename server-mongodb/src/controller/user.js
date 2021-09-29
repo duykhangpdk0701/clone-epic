@@ -20,7 +20,16 @@ exports.userLogin = async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
 
   try {
-    return res.header("auth-token", token).send(token);
+    return res
+      .status(200)
+      .header("auth-token", token)
+      .send({
+        user: {
+          _id: user._id,
+          username: user.username,
+        },
+        token,
+      });
   } catch (err) {
     return res.status(400).send({ message: err });
   }

@@ -1,0 +1,13 @@
+@import "../../../style/color";
+
+.wrapper {
+  position: sticky;
+  width: 100%;
+  background-color: $primary-black;
+}
+
+.container {
+  margin: auto;
+  width: 75%;
+  max-width: 1600px;
+}

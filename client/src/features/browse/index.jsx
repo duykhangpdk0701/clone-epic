@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { getAll } from "../../app/productsSlice";
 import style from "./browse.module.scss";
 import Item from "./Item";
+//import subNav
+import SubNav from "../../components/header/subNav/SubNav";
 
 const Browse = () => {
   const dispatch = useDispatch();
@@ -21,16 +23,19 @@ const Browse = () => {
   }, [dispatch]);
 
   return (
-    <div className={style.container}>
-      <h1>this is browse page</h1>
-      <ul>
-        {product.map((element) => (
-          <li key={element._id.toString()}>
-            <Item data={element} />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <SubNav />
+      <div className={style.container}>
+        <h1>this is browse page</h1>
+        <ul>
+          {product.map((element) => (
+            <li key={element._id.toString()}>
+              <Item data={element} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 

@@ -23,18 +23,18 @@ const Nav = (props) => {
         {localStorage.getItem("token") ? (
           <>
             <Link to="#" className={style.username}>
-              <BsFillPersonFill />
+              <BsFillPersonFill className={style.username_icon} />
               <span className={style.username_text}>{props.username}</span>
             </Link>
             <ul className={style.dropdown_ul}>
               <li className={style.dropdown_li}>
-                <Link to="/product/account">Account</Link>
+                <Link to="/store/account">Account</Link>
               </li>
               <li className={style.dropdown_li}>
-                <Link to="/product/coupon">Coupons</Link>
+                <Link to="/store/coupon">Coupons</Link>
               </li>
               <li className={style.dropdown_li}>
-                <Link to="/product/wishlist">Wishlist</Link>
+                <Link to="/store/wishlist">Wishlist</Link>
               </li>
               <li className={style.dropdown_li}>
                 <Link to="#" onClick={handleLogout}>
@@ -45,7 +45,7 @@ const Nav = (props) => {
           </>
         ) : (
           <Link to="/auth/login" className={style.username}>
-            <BsFillPersonFill />
+            <BsFillPersonFill className={style.username_icon} />
             <span className={style.username_text}>Log in</span>
           </Link>
         )}
