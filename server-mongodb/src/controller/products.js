@@ -18,6 +18,7 @@ exports.productAdd = async (req, res) => {
   //creating a new product
   const product = new ProductModel({
     name: req.body.name,
+    category: req.body.category,
   });
   try {
     const saveProduct = await product.save();

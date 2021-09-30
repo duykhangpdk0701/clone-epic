@@ -1,5 +1,14 @@
 const Category = require("../model/Category");
 
+exports.getAllCategory = async (req, res) => {
+  try {
+    const findCategory = await Category.find();
+    res.status(200).send(findCategory);
+  } catch (error) {
+    res.status(400).send({ message: err });
+  }
+};
+
 exports.addCategory = async (req, res) => {
   const category = new Category({
     name: req.body.name,

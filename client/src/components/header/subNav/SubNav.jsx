@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./SubNav.module.scss";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SubNav = () => {
   return (
@@ -8,14 +8,31 @@ const SubNav = () => {
       <nav className={style.container}>
         <div className={style.feature_page}>
           <div className={style.discover_and_browse}>
-            <Link to="/store/discover">Discover</Link>
-            <Link to="/store/browse">Browse</Link>
+            <NavLink
+              className={`${style.nav_link} ${style.discover_and_browse_nav_link}`}
+              activeClassName={style.nav_link_active}
+              to="/store/discover">
+              Discover
+            </NavLink>
+            <NavLink
+              className={`${style.nav_link} ${style.discover_and_browse_nav_link}`}
+              activeClassName={style.nav_link_active}
+              to="/store/browse">
+              Browse
+            </NavLink>
           </div>
           <div className={style.wishlist_container}>
-            <Link to="/store/wishlist">Wishlist</Link>
+            <NavLink
+              className={style.nav_link}
+              activeClassName={style.nav_link_active}
+              to="/store/wishlist">
+              Wishlist
+            </NavLink>
           </div>
         </div>
-        <div className={style.search_bar_wrapper}></div>
+        <div className={style.search_bar_wrapper}>
+          <input type="text" />
+        </div>
       </nav>
     </div>
   );

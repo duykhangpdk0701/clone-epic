@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import style from "./Nav.module.scss";
 //import assets
 import logo from "../../assets/logo.svg";
@@ -22,26 +22,46 @@ const Nav = (props) => {
       <div className={style.dropdown_container}>
         {localStorage.getItem("token") ? (
           <>
-            <Link to="#" className={style.username}>
+            <button className={style.username}>
               <BsFillPersonFill className={style.username_icon} />
               <span className={style.username_text}>{props.username}</span>
-            </Link>
-            <ul className={style.dropdown_ul}>
-              <li className={style.dropdown_li}>
-                <Link to="/store/account">Account</Link>
-              </li>
-              <li className={style.dropdown_li}>
-                <Link to="/store/coupon">Coupons</Link>
-              </li>
-              <li className={style.dropdown_li}>
-                <Link to="/store/wishlist">Wishlist</Link>
-              </li>
-              <li className={style.dropdown_li}>
-                <Link to="#" onClick={handleLogout}>
-                  Sign Out
-                </Link>
-              </li>
-            </ul>
+            </button>
+            <div className={style.dropdown_ul_wrapper}>
+              <ul className={style.dropdown_ul}>
+                <li className={style.dropdown_li}>
+                  <NavLink
+                    className={style.nav_link}
+                    activeClassName={style.nav_link_active}
+                    to="/store/account">
+                    Account
+                  </NavLink>
+                </li>
+                <li className={style.dropdown_li}>
+                  <NavLink
+                    className={style.nav_link}
+                    activeClassName={style.nav_link_active}
+                    to="/store/coupon">
+                    Coupons
+                  </NavLink>
+                </li>
+                <li className={style.dropdown_li}>
+                  <NavLink
+                    className={style.nav_link}
+                    activeClassName={style.nav_link_active}
+                    to="/store/wishlist">
+                    Wishlist
+                  </NavLink>
+                </li>
+                <li className={style.dropdown_li}>
+                  <NavLink
+                    className={style.nav_link}
+                    to="#"
+                    onClick={handleLogout}>
+                    Sign Out
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
           </>
         ) : (
           <Link to="/auth/login" className={style.username}>
