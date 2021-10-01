@@ -2,7 +2,9 @@ const WishlistModel = require("../model/Wishlist");
 
 exports.wishlistGetByUserId = async (req, res) => {
   try {
-    const findWishlist = await WishlistModel.find({ userId: req.body.userId });
+    const findWishlist = await WishlistModel.find({
+      userId: req.params.userId,
+    });
     res.status(200).send(findWishlist);
   } catch (error) {
     res.status(400).send({ message: error });

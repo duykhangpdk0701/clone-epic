@@ -35,8 +35,7 @@ const Login = () => {
     try {
       const action = login({ username, password });
       const actionResult = await dispatch(action);
-      const currentToken = unwrapResult(actionResult);
-      localStorage.setItem(`token`, currentToken);
+      unwrapResult(actionResult);
       history.push("/");
     } catch (error) {
       setError(error.message);
