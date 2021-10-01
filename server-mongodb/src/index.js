@@ -8,8 +8,9 @@ const connectDB = require("./config/conn");
 //import router
 const authRouter = require("./router/auth");
 const categoryRouter = require("./router/category");
-const post = require("./router/posts");
-const products = require("./router/products");
+const postRouter = require("./router/posts");
+const productsRouter = require("./router/products");
+const wishlistRouter = require("./router/wishlist");
 
 //use middleware
 app.use(
@@ -25,8 +26,9 @@ connectDB();
 //middleware router
 app.use("/auth", authRouter);
 app.use("/category", categoryRouter);
-app.use("/post", post);
-app.use("/products", products);
+app.use("/post", postRouter);
+app.use("/products", productsRouter);
+app.use("/wishlist", wishlistRouter);
 
 app.get("/", (req, res) => {
   res.send("hello my name is Khang");
