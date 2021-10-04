@@ -7,10 +7,18 @@ const ProductSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    category: {
+    Category: {
       type: mongoose.Types.ObjectId,
       required: true,
+      ref: "Category",
     },
+
+    Wishlist: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "Wishlist",
+      },
+    ],
   },
   { timestamps: true },
 );

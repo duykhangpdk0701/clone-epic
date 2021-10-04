@@ -4,7 +4,7 @@ import wishlistApi from "../api/wishlist";
 const initialState = {
   loading: false,
   error: "",
-  currentWishlists: [],
+  current: [],
 };
 
 export const getById = createAsyncThunk("wishlist/getById", async (data) => {
@@ -47,7 +47,7 @@ const wishlistSlice = createSlice({
       })
       .addCase(getById.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentWishlists = action.payload;
+        state.current = action.payload;
       })
       //addWishlist case
       .addCase(addWishlist.pending, (state) => {
@@ -59,7 +59,7 @@ const wishlistSlice = createSlice({
       })
       .addCase(addWishlist.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentWishlists = [...state.currentWishlists, action.payload];
+        state.current = [...state.current, action.payload];
       })
       //  removeWishlist case
       .addCase(removeWishlist.pending, (state) => {
@@ -72,7 +72,7 @@ const wishlistSlice = createSlice({
       .addCase(removeWishlist.fulfilled, (state, action) => {
         state.loading = false;
         const { userId, productId } = action.payload;
-        state.currentWishlists = state.currentWishlists.filter((wishlist) => {
+        state.current = state.current.filter((wishlist) => {
           return wishlist.userId !== userId && wishlist.productId !== productId;
         });
       });

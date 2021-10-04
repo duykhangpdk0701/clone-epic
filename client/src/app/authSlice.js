@@ -46,6 +46,8 @@ export const authSlice = createSlice({
         state.loading = false;
         state.currentUser = action.payload.user;
         localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("userId", action.payload.user._id);
+        localStorage.setItem("username", action.payload.user.username);
       })
       //register
       .addCase(register.pending, (state) => {

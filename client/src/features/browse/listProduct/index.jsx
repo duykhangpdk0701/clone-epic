@@ -1,19 +1,16 @@
-import { unwrapResult } from "@reduxjs/toolkit";
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAll } from "../../../app/productsSlice";
 
 const ListProduct = ({ className }) => {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
+  const products = useSelector((state) => state.products.current);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const action = getAll();
-      const actionResult = await dispatch(action);
-      const currentResult = unwrapResult(actionResult);
-      setProducts(currentResult);
+      dispatch(action);
     };
     fetchProducts();
     return;

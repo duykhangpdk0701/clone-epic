@@ -33,6 +33,7 @@ exports.findProductByCategoryIds = async (req, res) => {
     const findProducts = await ProductModel.find({
       categoryId: { $all: [req.body.categoryIds] },
     });
+
     res.status(200).send(findProducts);
   } catch (error) {
     res.status(400).send(error);
@@ -58,6 +59,7 @@ exports.updateProductById = async (req, res) => {
       productUpdate,
       { new: true },
     );
+
     res.status(200).send(updateProduct);
   } catch (error) {
     res.status(400).send(error);

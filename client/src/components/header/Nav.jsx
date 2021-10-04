@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
 import style from "./Nav.module.scss";
@@ -10,6 +10,8 @@ import { BsFillPersonFill } from "react-icons/bs";
 const Nav = (props) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
   };
 
   return (
@@ -24,7 +26,9 @@ const Nav = (props) => {
           <>
             <button className={style.username}>
               <BsFillPersonFill className={style.username_icon} />
-              <span className={style.username_text}>{props.username}</span>
+              <span className={style.username_text}>
+                {localStorage.getItem("username")}
+              </span>
             </button>
             <div className={style.dropdown_ul_wrapper}>
               <ul className={style.dropdown_ul}>
