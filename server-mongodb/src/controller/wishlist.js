@@ -13,10 +13,13 @@ exports.wishlistGetByUserId = async (req, res) => {
 };
 
 exports.addWishlist = async (req, res) => {
+  const userId = req.body.userId;
+  const productId = req.body.productId;
+
   //checking if wishlist exist
   const wishlistExist = await WishlistModel.findOne({
-    userId: req.body.userId,
-    productId: req.body.productId,
+    userId,
+    productId,
   });
   if (wishlistExist)
     return res.status(400).send("this wishlist is already exist!");
@@ -24,8 +27,8 @@ exports.addWishlist = async (req, res) => {
   try {
     //creating a new wishlist
     const wishlist = new WishlistModel({
-      userId: req.body.userId,
-      productId: req.body.productId,
+      userId,
+      productId,
     });
 
     const saveWishlist = await wishlist.save();
@@ -37,10 +40,11 @@ exports.addWishlist = async (req, res) => {
 
 exports.removeWishlist = async (req, res) => {
   try {
+    //find wishlist and delete
     const removeWishlist = await WishlistModel.findOne({
       userId: req.body.userId,
       productId: req.body.productId,
-    }).remove();
+    }).deleteOne();
     res.status(200).send(removeWishlist);
   } catch (error) {
     res.status(400).send({ message: error });

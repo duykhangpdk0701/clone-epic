@@ -11,6 +11,7 @@ const categoryRouter = require("./router/category");
 const postRouter = require("./router/posts");
 const productsRouter = require("./router/products");
 const wishlistRouter = require("./router/wishlist");
+const testRouter = require("./router/test");
 
 //use middleware
 app.use(
@@ -29,6 +30,7 @@ app.use("/category", categoryRouter);
 app.use("/post", postRouter);
 app.use("/products", productsRouter);
 app.use("/wishlist", wishlistRouter);
+app.use("/test", testRouter);
 
 app.get("/", (req, res) => {
   res.send("hello my name is Khang");
