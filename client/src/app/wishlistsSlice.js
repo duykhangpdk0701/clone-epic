@@ -12,7 +12,7 @@ export const getById = createAsyncThunk("wishlist/getById", async (data) => {
   return res;
 });
 
-export const addWishlist = createAsyncThunk(
+export const addWishlistSync = createAsyncThunk(
   "wishlist/addWishlist",
   async (data) => {
     const { userId, productId } = data;
@@ -21,7 +21,7 @@ export const addWishlist = createAsyncThunk(
   },
 );
 
-export const removeWishlist = createAsyncThunk(
+export const removeWishlistSync = createAsyncThunk(
   "wishlist/removeWishlist",
   async (data) => {
     const { userId, productId } = data;
@@ -50,26 +50,26 @@ const wishlistSlice = createSlice({
         state.current = action.payload;
       })
       //addWishlist case
-      .addCase(addWishlist.pending, (state) => {
+      .addCase(addWishlistSync.pending, (state) => {
         state.loading = true;
       })
-      .addCase(addWishlist.rejected, (state, action) => {
+      .addCase(addWishlistSync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error;
       })
-      .addCase(addWishlist.fulfilled, (state, action) => {
+      .addCase(addWishlistSync.fulfilled, (state, action) => {
         state.loading = false;
         state.current = [...state.current, action.payload];
       })
       //  removeWishlist case
-      .addCase(removeWishlist.pending, (state) => {
+      .addCase(removeWishlistSync.pending, (state) => {
         state.loading = true;
       })
-      .addCase(removeWishlist.rejected, (state, action) => {
+      .addCase(removeWishlistSync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error;
       })
-      .addCase(removeWishlist.fulfilled, (state, action) => {
+      .addCase(removeWishlistSync.fulfilled, (state, action) => {
         state.loading = false;
         const { userId, productId } = action.payload;
         state.current = state.current.filter((wishlist) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { removeWishlist } from "../../app/wishlistsSlice";
+import { removeWishlistSync } from "../../app/wishlistsSlice";
 import { useDispatch } from "react-redux";
 
 const ItemWishlist = ({ data }) => {
@@ -11,7 +11,7 @@ const ItemWishlist = ({ data }) => {
   const handleRemoveWishlist = async (e) => {
     const userId = localStorage.getItem("userId");
     const productId = data._id;
-    const action = removeWishlist({ userId, productId });
+    const action = removeWishlistSync({ userId, productId });
     dispatch(action);
   };
 
