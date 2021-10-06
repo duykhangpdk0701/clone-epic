@@ -50,3 +50,16 @@ exports.removeWishlist = async (req, res) => {
     res.status(400).send({ message: error });
   }
 };
+
+exports.countWishlist = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    console.log(userId);
+    const countWishlist = await WishlistModel.count({
+      userId,
+    });
+    res.status(200).send({ countWishlist });
+  } catch (error) {
+    res.status(400).send({ message: error });
+  }
+};

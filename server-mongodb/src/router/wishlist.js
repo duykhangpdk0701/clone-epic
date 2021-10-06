@@ -10,5 +10,6 @@ router.get(
 );
 router.post("/add-wishlist", verify, wishlistController.addWishlist);
 router.post("/remove-wishlist", verify, wishlistController.removeWishlist);
+router.post("/count-wishlist", verify, wishlistController.countWishlist);
 
 module.exports = router;
