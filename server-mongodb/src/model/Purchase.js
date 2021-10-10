@@ -2,18 +2,18 @@ const mongoose = require("mongoose");
 
 const PurchaseSchema = mongoose.Schema(
   {
-    userId: {
+    user: {
       type: mongoose.Types.ObjectId,
       require: true,
+      ref: "User",
     },
-    productId: {
+    product: {
       type: mongoose.Types.ObjectId,
       require: true,
+      ref: "Product",
     },
   },
-  {
-    timestamps: true,
-  },
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Purchase", PurchaseSchema, "purchases");

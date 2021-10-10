@@ -13,7 +13,7 @@ const purchaseApi = {
 
   removeWishlist(userId, productId) {
     const url = "/wishlist/remove-wishlist";
-    return axiosClient.post(url, { userId, productId });
+    return axiosClient.delete(url, { userId, productId });
   },
 };
 

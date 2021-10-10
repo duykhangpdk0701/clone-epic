@@ -4,6 +4,7 @@ import wishlistApi from "../api/wishlist";
 const initialState = {
   loading: false,
   error: "",
+  count: 0,
   current: [],
 };
 
@@ -30,6 +31,16 @@ export const removeWishlistSync = createAsyncThunk(
   },
 );
 
+//! this is only testing
+export const getCountWishlistByUserIdSync = createAsyncThunk(
+  "wishlist/getCountWishlistByUserId",
+  async (data) => {
+    const { userId } = data;
+    const res = await wishlistApi.getCountWishlistByUserId(userId);
+    return res.countWishlist;
+  },
+);
+
 const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
@@ -49,6 +60,7 @@ const wishlistSlice = createSlice({
         state.loading = false;
         state.current = action.payload;
       })
+
       //addWishlist case
       .addCase(addWishlistSync.pending, (state) => {
         state.loading = true;
@@ -61,6 +73,7 @@ const wishlistSlice = createSlice({
         state.loading = false;
         state.current = [...state.current, action.payload];
       })
+
       //  removeWishlist case
       .addCase(removeWishlistSync.pending, (state) => {
         state.loading = true;
@@ -75,6 +88,20 @@ const wishlistSlice = createSlice({
         state.current = state.current.filter((wishlist) => {
           return wishlist.userId !== userId && wishlist.productId !== productId;
         });
+      })
+
+      //! this is only testing
+      // getCountWishlistBuUserId
+      .addCase(getCountWishlistByUserIdSync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getCountWishlistByUserIdSync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error;
+      })
+      .addCase(getCountWishlistByUserIdSync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.count = action.payload;
       });
   },
 });

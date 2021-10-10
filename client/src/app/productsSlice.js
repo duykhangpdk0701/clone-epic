@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 import productApi from "../api/productApi";
 
 const initialState = {

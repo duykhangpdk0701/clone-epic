@@ -60,11 +60,11 @@
 .dropdown_ul_wrapper {
   position: relative;
   // ! this  is default value
-  // opacity: 0;
-  // pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 
   // ! this is testing value
-  opacity: 1;
+  // opacity: 1;
 
   transform: translateY(-10px);
   transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;

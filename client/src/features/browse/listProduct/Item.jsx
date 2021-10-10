@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { addWishlist } from "../../../app/wishlistsSlice";
+import { addWishlistSync } from "../../../app/wishlistsSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -11,7 +11,7 @@ const Item = ({ data }) => {
 
   const handleAddToWishlist = async (e) => {
     const userId = localStorage.getItem("userId");
-    const action = addWishlist({ userId: userId, productId: data._id });
+    const action = addWishlistSync({ userId: userId, productId: data._id });
     dispatch(action);
   };
 

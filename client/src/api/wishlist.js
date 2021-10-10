@@ -15,6 +15,11 @@ const wishlistApi = {
     const url = "/wishlist/remove-wishlist";
     return axiosClient.post(url, { userId, productId });
   },
+
+  getCountWishlistByUserId(userId) {
+    const url = "/wishlist/count-wishlist";
+    return axiosClient.post(url, { userId });
+  },
 };
 
 export default wishlistApi;

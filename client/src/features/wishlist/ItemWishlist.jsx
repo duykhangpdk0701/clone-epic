@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 const ItemWishlist = ({ data }) => {
   const dispatch = useDispatch();
-  const productName = data.productId.name;
+  const productName = data.product.name;
 
   const handleRemoveWishlist = async (e) => {
     const userId = localStorage.getItem("userId");
@@ -25,6 +25,12 @@ const ItemWishlist = ({ data }) => {
   );
 };
 
-ItemWishlist.propTypes = {};
+ItemWishlist.propTypes = {
+  data: PropTypes.object,
+};
+
+ItemWishlist.defaultProps = {
+  data: {},
+};
 
 export default ItemWishlist;

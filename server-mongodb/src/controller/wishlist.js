@@ -2,9 +2,11 @@ const WishlistModel = require("../model/Wishlist");
 
 exports.wishlistGetByUserId = async (req, res) => {
   try {
-    const findWishlist = await WishlistModel.find({
-      userId: req.params.userId,
-    }).populate({ path: "productId", select: ["_id", "name"] });
+    const userId = req.params.userId;
+    const findWishlist = await WishlistModel.find({ userId }).populate({
+      path: "product",
+      select: ["_id", "name"],
+    });
 
     res.status(200).send(findWishlist);
   } catch (error) {
@@ -27,8 +29,8 @@ exports.addWishlist = async (req, res) => {
   try {
     //creating a new wishlist
     const wishlist = new WishlistModel({
-      userId,
-      productId,
+      user: userId,
+      product: productId,
     });
 
     const saveWishlist = await wishlist.save();
@@ -40,10 +42,12 @@ exports.addWishlist = async (req, res) => {
 
 exports.removeWishlist = async (req, res) => {
   try {
+    const userId = req.body.userId;
+    const productId = req.body.productId;
     //find wishlist and delete
     const removeWishlist = await WishlistModel.findOne({
-      userId: req.body.userId,
-      productId: req.body.productId,
+      user: userId,
+      product: productId,
     }).deleteOne();
     res.status(200).send(removeWishlist);
   } catch (error) {
@@ -54,9 +58,8 @@ exports.removeWishlist = async (req, res) => {
 exports.countWishlist = async (req, res) => {
   try {
     const userId = req.body.userId;
-    console.log(userId);
     const countWishlist = await WishlistModel.count({
-      userId,
+      user: userId,
     });
     res.status(200).send({ countWishlist });
   } catch (error) {

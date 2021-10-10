@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getById, removeWishlist } from "../../app/wishlistsSlice";
+import { getById } from "../../app/wishlistsSlice";
 import SubNav from "../../components/header/subNav/SubNav";
 import style from "./wishlist.module.scss";
 
 //import logo
 import pending from "../../assets/img/pending.svg";
-import { Link } from "react-router-dom";
 import ItemWishlist from "./ItemWishlist";
 
 const Wishlist = () => {
