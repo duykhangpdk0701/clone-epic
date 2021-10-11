@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.item_active {
+  background-color: $secondary-black;
+}
+
 .item > span {
   color: $text-while-non-active;
   font-size: 12px;
