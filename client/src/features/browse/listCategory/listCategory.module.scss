@@ -37,3 +37,12 @@
   font-weight: 600;
   font-size: 11px;
 }
+
+.filter_ul {
+  list-style: none;
+  overflow: hidden;
+}
+
+.filter_ul_inactive {
+  height: 0;
+}

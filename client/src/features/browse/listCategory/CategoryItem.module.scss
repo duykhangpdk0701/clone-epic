@@ -1,0 +1,16 @@
+@import "../../../style/color";
+
+.item {
+  height: 45px;
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.item > span {
+  color: $text-while-non-active;
+  font-size: 12px;
+  font-weight: bold;
+}

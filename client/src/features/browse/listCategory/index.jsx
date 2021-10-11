@@ -6,10 +6,12 @@ import { getAll } from "../../../app/categoriesSlice";
 import style from "./listCategory.module.scss";
 //import icon
 import { IoIosArrowDown } from "react-icons/io";
+import CategoryItem from "./CategoryItem";
 
 const ListCategory = ({ className }) => {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
+  const [genreToggle, setGenreToggle] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -22,6 +24,10 @@ const ListCategory = ({ className }) => {
     return;
   }, [dispatch]);
 
+  const handleGenreBtn = () => {
+    setGenreToggle(!genreToggle);
+  };
+
   return (
     <aside className={className}>
       <div className={style.filter_section}>
@@ -33,20 +39,23 @@ const ListCategory = ({ className }) => {
 
       <div className={style.filter_section}>
         <div className={`${style.header}`}>
-          <button className={style.filter_title_collapse}>
+          <button
+            className={style.filter_title_collapse}
+            onClick={handleGenreBtn}>
             <span className={style.filter_title_collapse_text}>GENRE</span>
             <span className={style.filter_title_collapse_arrow}>
               <IoIosArrowDown />
             </span>
           </button>
         </div>
-        <ul>
+        <ul
+          className={
+            genreToggle
+              ? style.filter_ul
+              : `${style.filter_ul} ${style.filter_ul_inactive}`
+          }>
           {categories.map((item) => (
-            <li key={item._id}>
-              <div>
-                <p>{item.name}</p>
-              </div>
-            </li>
+            <CategoryItem data={item} key={item._id} />
           ))}
         </ul>
         <div className={style.header_line}></div>
