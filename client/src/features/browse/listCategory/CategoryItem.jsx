@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
@@ -8,23 +8,24 @@ import { removeItemOnce } from "../../../helper/RemoveItemFromArray";
 
 const CategoryItem = ({ data }) => {
   const history = useHistory();
-  const isActive = useMemo(() => {
-    const tagUrl = queryString.parse(history.location.search, {
-      arrayFormat: "bracket-separator",
-      arrayFormatSeparator: "|",
-    }).tag;
-    return tagUrl.includes(data.name);
-  }, [history.location.search]);
+  const urlParams = useMemo(
+    () =>
+      queryString.parse(history.location.search, {
+        arrayFormat: "bracket-separator",
+        arrayFormatSeparator: "|",
+      }),
+    [history.location.search],
+  );
 
-  useEffect(() => {
-    console.log("url change");
-  }, [queryString.parse(history.location.search)]);
+  //  checking if this category active or not
+  const isActive = useMemo(() => {
+    if (urlParams.tag) {
+      return urlParams.tag.includes(data.name);
+    }
+    return false;
+  }, [urlParams.tag, data.name]);
 
   const handleItemClick = (e) => {
-    const urlParams = queryString.parse(history.location.search, {
-      arrayFormat: "bracket-separator",
-      arrayFormatSeparator: "|",
-    });
     let tag = urlParams.tag;
 
     if (Array.isArray(tag)) {
@@ -33,11 +34,30 @@ const CategoryItem = ({ data }) => {
       } else {
         tag.push(data.name);
       }
-      const tagUrl = tag.join("|");
-      history.replace(`/store/browse?tag[]=${tagUrl}`);
+
+      if (tag.length === 0) {
+        history.replace({
+          pathname: "/store/browse",
+          search: queryString.stringify({ ...urlParams, tag: [] }),
+        });
+        return;
+      }
+      history.replace({
+        pathname: "/store/browse",
+        search: queryString.stringify(
+          { ...urlParams, tag: tag },
+          { arrayFormat: "bracket-separator", arrayFormatSeparator: "|" },
+        ),
+      });
       return;
     }
-    history.replace(`/store/browse?tag[]=${data.name}`);
+    history.replace({
+      pathname: `/store/browse`,
+      search: queryString.stringify(
+        { ...urlParams, tag: [data.name] },
+        { arrayFormat: "bracket-separator", arrayFormatSeparator: "|" },
+      ),
+    });
   };
 
   return (
