@@ -1,14 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import queryString from "query-string";
 //import scss
 import style from "./SortListProduct.module.scss";
-import { ReplaceUrtUrl } from "../../../helper/ReplaceSortUrl";
+//import feature
+import { ReplaceUrl } from "../../../helper/ReplaceSortUrl";
 import * as SortType from "../../../helper/SortType";
 
 const SortListProduct = () => {
-  const [currentSort, setCurrentSort] = useState("New release");
+  const [currentSort, setCurrentSort] = useState(SortType.NEW_RELEASE.value);
   const history = useHistory();
+  const pathnameUrl = history.location.pathname;
+
   const urlParams = useMemo(
     () =>
       queryString.parse(history.location.search, {
@@ -39,43 +42,69 @@ const SortListProduct = () => {
       default:
         break;
     }
-  });
+  }, [setCurrentSort, urlParams.sortBy]);
 
-  const handleSortNewRelease = () => {
-    ReplaceUrtUrl(SortType.NEW_RELEASE.urlValue, history, urlParams);
-    setCurrentSort(SortType.NEW_RELEASE.urlValue);
+  const handleSortType = (sortType) => {
+    return ReplaceUrl(sortType, urlParams);
   };
-  const handleSortReleaseDate = () => {
-    ReplaceUrtUrl(SortType.RELEASE_DATE.urlValue, history, urlParams);
-    setCurrentSort(SortType.RELEASE_DATE.urlValue);
-  };
-  const handleSortAlphabetical = () => {
-    ReplaceUrtUrl(SortType.ALPHABETICAL.urlValue, history, urlParams);
-    setCurrentSort(SortType.ALPHABETICAL.urlValue);
-  };
-  const handleSortLowToHigh = () => {
-    ReplaceUrtUrl(SortType.LOW_TO_HIGH.urlValue, history, urlParams);
-    setCurrentSort(SortType.LOW_TO_HIGH.urlValue);
-  };
-  const handleSortHighToLow = () => {
-    ReplaceUrtUrl(SortType.HIGH_TO_LOW.urlValue, history, urlParams);
-    setCurrentSort(SortType.HIGH_TO_LOW.urlValue);
+
+  const generateToUrl = (url) => `${pathnameUrl}?${handleSortType(url)}`;
+
+  const isActive = (sortType) => (match, location) => {
+    if (!match) {
+      return false;
+    }
+    const { sortBy } = queryString.parse(location.search, {
+      arrayFormat: "bracket-separator",
+      arrayFormatSeparator: "|",
+    });
+    return sortBy === sortType ? true : false;
   };
 
   return (
     <div className={style.side_bar}>
       <div className={style.drop_down}>
-        <button className={style}>
-          <span>Sort By: </span>
-          <span>{currentSort}</span>
-          <span></span>
+        <button className={style.nav_button}>
+          <span className={style.static_type}>Sort By: </span>
+          <span className={style.value}>{currentSort}</span>
+          <span className={style.icon}></span>
         </button>
-        <div>
-          <button onClick={handleSortNewRelease}>New release</button>
-          <button onClick={handleSortReleaseDate}>Release date</button>
-          <button onClick={handleSortAlphabetical}>Alphabetical</button>
-          <button onClick={handleSortLowToHigh}>Price: Low to High</button>
-          <button onClick={handleSortHighToLow}>Price: Hight to Low</button>
+        <div className={style.nav_container}>
+          <NavLink
+            className={style.nav_link}
+            activeClassName={style.nav_link_active}
+            isActive={isActive(SortType.NEW_RELEASE.urlValue)}
+            to={generateToUrl(SortType.NEW_RELEASE.urlValue)}>
+            New Release
+          </NavLink>
+          <NavLink
+            className={style.nav_link}
+            activeClassName={style.nav_link_active}
+            isActive={isActive(SortType.RELEASE_DATE.urlValue)}
+            to={generateToUrl(SortType.RELEASE_DATE.urlValue)}>
+            Release Date
+          </NavLink>
+          <NavLink
+            className={style.nav_link}
+            activeClassName={style.nav_link_active}
+            isActive={isActive(SortType.ALPHABETICAL.urlValue)}
+            to={generateToUrl(SortType.ALPHABETICAL.urlValue)}>
+            Alphabetical
+          </NavLink>
+          <NavLink
+            className={style.nav_link}
+            activeClassName={style.nav_link_active}
+            isActive={isActive(SortType.LOW_TO_HIGH.urlValue)}
+            to={generateToUrl(SortType.LOW_TO_HIGH.urlValue)}>
+            Price: Low to High
+          </NavLink>
+          <NavLink
+            className={style.nav_link}
+            activeClassName={style.nav_link_active}
+            isActive={isActive(SortType.HIGH_TO_LOW.urlValue)}
+            to={generateToUrl(SortType.HIGH_TO_LOW.urlValue)}>
+            Price: High to Low
+          </NavLink>
         </div>
       </div>
     </div>

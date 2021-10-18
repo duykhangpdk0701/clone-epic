@@ -1,2 +1,43 @@
+@import "../../../style/color";
+
+.side_bar {
+}
+
 .drop_down {
+}
+
+.nav_button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  .static_type {
+    color: $text-while-non-active;
+  }
+
+  .value,
+  .icon {
+    color: $text-while-active;
+  }
+}
+
+.nav_container {
+  display: flex;
+  flex-direction: column;
+  background-color: $tertiary-black;
+}
+
+.nav_link {
+  color: $text-while-non-active;
+
+  &:hover {
+    color: $text-while-active;
+    text-decoration: underline;
+  }
+}
+
+.nav_link_active {
+  color: $text-while-active;
+  text-decoration: underline;
 }
