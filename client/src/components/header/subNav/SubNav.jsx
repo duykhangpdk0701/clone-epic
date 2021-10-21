@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
+import { NavLink, useHistory } from "react-router-dom";
+import queryString from "query-string";
+//import style
 import style from "./SubNav.module.scss";
-import { NavLink } from "react-router-dom";
+//import redux
 import { useDispatch } from "react-redux";
 import { getCountWishlistByUserIdSync } from "../../../app/wishlistsSlice";
 import { useSelector } from "react-redux";
@@ -10,8 +13,19 @@ import { AiOutlineClose } from "react-icons/ai";
 
 const SubNav = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const countWishlist = useSelector((state) => state.wishlists.count);
   const [search, setSearch] = useState("");
+  const typingTimeoutRef = useRef(null);
+
+  const urlParams = useMemo(
+    () =>
+      queryString.parse(history.location.search, {
+        arrayFormat: "bracket-separator",
+        arrayFormatSeparator: "|",
+      }),
+    [history.location.search],
+  );
 
   useEffect(() => {
     const fetchCountWishList = () => {
@@ -26,11 +40,37 @@ const SubNav = () => {
 
   const handleSearchBtn = (e) => {
     console.log("hello my name is Khang");
+    console.log(history.location.pathname);
   };
 
   const handleOnchangeInputSearch = (e) => {
+    const value = e.target.value;
     setSearch(e.target.value);
-    console.log(e.target.value);
+
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    typingTimeoutRef.current = setTimeout(() => {
+      if (value !== "") {
+        history.replace({
+          pathname: "/store/browse",
+          search: queryString.stringify(
+            { ...urlParams, q: value },
+            { arrayFormat: "bracket-separator", arrayFormatSeparator: "|" },
+          ),
+        });
+      } else {
+        delete urlParams.q;
+        history.replace({
+          pathname: "/store/browse",
+          search: queryString.stringify(
+            { ...urlParams },
+            { arrayFormat: "bracket-separator", arrayFormatSeparator: "|" },
+          ),
+        });
+      }
+    }, 500);
   };
 
   const handleCancelSearching = () => {

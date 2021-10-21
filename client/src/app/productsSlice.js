@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import productApi from "../api/productApi";
+import queryString from "query-string";
 
 const initialState = {
   loading: false,
@@ -8,7 +9,14 @@ const initialState = {
 };
 
 export const getAll = createAsyncThunk("product/getAll", async (data) => {
-  const res = await productApi.getAll();
+  const { urlParams } = data;
+  const stringifyUrlParams = queryString.stringify(urlParams, {
+    arrayFormat: "bracket-separator",
+    arrayFormatSeparator: "|",
+    skipNull: true,
+  });
+
+  const res = await productApi.getAll(stringifyUrlParams);
   return res;
 });
 

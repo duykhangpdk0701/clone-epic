@@ -11,7 +11,10 @@ const Item = ({ data }) => {
 
   const handleAddToWishlist = async (e) => {
     const userId = localStorage.getItem("userId");
-    const action = addWishlistSync({ userId: userId, productId: data._id });
+    const action = addWishlistSync({
+      userId: userId,
+      productId: data._id,
+    });
     dispatch(action);
   };
 

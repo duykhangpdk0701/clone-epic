@@ -1,4 +1,5 @@
 const WishlistModel = require("../model/Wishlist");
+const mongoose = require("mongoose");
 
 exports.wishlistGetByUserId = async (req, res) => {
   try {
@@ -20,11 +21,12 @@ exports.addWishlist = async (req, res) => {
 
   //checking if wishlist exist
   const wishlistExist = await WishlistModel.findOne({
-    userId,
-    productId,
+    user: mongoose.Types.ObjectId(userId),
+    product: mongoose.Types.ObjectId(productId),
   });
-  if (wishlistExist)
+  if (wishlistExist) {
     return res.status(400).send("this wishlist is already exist!");
+  }
 
   try {
     //creating a new wishlist
@@ -42,13 +44,12 @@ exports.addWishlist = async (req, res) => {
 
 exports.removeWishlist = async (req, res) => {
   try {
-    const userId = req.body.userId;
-    const productId = req.body.productId;
+    const { id } = req.body;
+    console.log(req.body);
     //find wishlist and delete
-    const removeWishlist = await WishlistModel.findOne({
-      user: userId,
-      product: productId,
-    }).deleteOne();
+    const removeWishlist = await WishlistModel.deleteOne({
+      _id: id,
+    });
     res.status(200).send(removeWishlist);
   } catch (error) {
     res.status(400).send({ message: error });

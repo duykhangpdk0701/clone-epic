@@ -9,9 +9,9 @@ const ItemWishlist = ({ data }) => {
   const productName = data.product.name;
 
   const handleRemoveWishlist = async (e) => {
-    const userId = localStorage.getItem("userId");
-    const productId = data._id;
-    const action = removeWishlistSync({ userId, productId });
+    const id = data._id;
+    console.log(id);
+    const action = await removeWishlistSync({ id });
     dispatch(action);
   };
 

@@ -1,11 +1,51 @@
 const ProductModel = require("../model/Product");
+const queryString = require("query-string");
+const toSortMongoValue = require("../helper/toSortMongoValue");
 
 exports.productsGetAll = async (req, res) => {
   try {
-    const findProduct = await ProductModel.find();
-    res.status(200).send(findProduct);
+    const search = queryString.parse(req._parsedUrl.search, {
+      arrayFormat: "bracket-separator",
+      arrayFormatSeparator: "|",
+    });
+    const searchParams = search.q || "";
+    //  checking if request has no search url, if it true then send all products
+    if (!search.tag) {
+      const findProduct = await ProductModel.aggregate([
+        { $sort: toSortMongoValue(search.sortBy) },
+        { $match: { name: { $regex: searchParams, $options: "i" } } },
+      ]);
+
+      res.status(200).send(findProduct);
+      return;
+    }
+
+    const findProductWithSearch = await ProductModel.aggregate([
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+
+      {
+        $match: {
+          $and: [
+            { name: { $regex: searchParams, $options: "i" } },
+            {
+              "category.name": { $in: search.tag },
+            },
+          ],
+        },
+      },
+      { $sort: toSortMongoValue(search.sortBy) },
+      { $unwind: "$category" },
+    ]);
+    res.status(200).send(findProductWithSearch);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send({ message: error });
   }
 };
 

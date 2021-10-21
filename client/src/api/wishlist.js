@@ -8,12 +8,14 @@ const wishlistApi = {
 
   addWishlist(userId, productId) {
     const url = `/wishlist/add-wishlist`;
+    console.log({ userId, productId });
     return axiosClient.post(url, { userId, productId });
   },
 
-  removeWishlist(userId, productId) {
+  removeWishlist(id) {
     const url = "/wishlist/remove-wishlist";
-    return axiosClient.post(url, { userId, productId });
+    console.log(id);
+    return axiosClient.delete(url, { data: { id } });
   },
 
   getCountWishlistByUserId(userId) {
