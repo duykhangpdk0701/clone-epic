@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("../controller/user");
+const authController = require("../controller/auth");
 
-router.post("/register", userController.userRegister);
+router.post("/register", authController.userRegister);
 
-router.post("/login", userController.userLogin);
+router.post("/login", authController.userLogin);
 
-router.get("/:id", userController.userFindById);
+router.get("/:id", authController.userFindById);
 
-router.get("/find-by-name/:name", userController.userFindByName);
+router.get("/find-by-name/:name", authController.userFindByName);
 
 module.exports = router;

@@ -8,6 +8,7 @@ exports.productsGetAll = async (req, res) => {
       arrayFormat: "bracket-separator",
       arrayFormatSeparator: "|",
     });
+
     const searchParams = search.q || "";
     //  checking if request has no search url, if it true then send all products
     if (!search.tag) {
@@ -59,6 +60,7 @@ exports.productAdd = async (req, res) => {
   const product = new ProductModel({
     name: req.body.name,
     category: req.body.category,
+    price: req.body.price,
   });
   try {
     const saveProduct = await product.save();

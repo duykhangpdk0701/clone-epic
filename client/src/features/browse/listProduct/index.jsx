@@ -7,6 +7,8 @@ import { getAll } from "../../../app/productsSlice";
 //import feature
 import Item from "./Item";
 import SortListProduct from "./SortListProduct";
+//import style
+import style from "./listProduct.module.scss";
 
 const ListProduct = ({ className }) => {
   const dispatch = useDispatch();
@@ -33,9 +35,9 @@ const ListProduct = ({ className }) => {
   return (
     <div className={className}>
       <SortListProduct />
-      <ul>
+      <ul className={style.browse_grid}>
         {products.map((item) => (
-          <li key={item._id}>
+          <li key={item._id} className={style.li}>
             <Item data={item} />
           </li>
         ))}

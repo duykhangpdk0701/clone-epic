@@ -10,7 +10,7 @@ const initialState = {
 
 export const getById = createAsyncThunk("wishlist/getById", async (data) => {
   const res = await wishlistApi.getById(data);
-  return res;
+  return res.map((item) => ({ ...item, loading: false }));
 });
 
 export const addWishlistSync = createAsyncThunk(
@@ -26,8 +26,8 @@ export const removeWishlistSync = createAsyncThunk(
   "wishlist/removeWishlist",
   async (data) => {
     const { id } = data;
-    const res = await wishlistApi.removeWishlist(id);
-    return res;
+    await wishlistApi.removeWishlist(id);
+    return id;
   },
 );
 
@@ -44,7 +44,19 @@ export const getCountWishlistByUserIdSync = createAsyncThunk(
 const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
-  reducers: {},
+  reducers: {
+    removeWishlist: (state, action) => {
+      state.current = state.current.filter((item) => {
+        console.log(item);
+        const wishlistId = action.payload;
+        return item.wishlistId !== wishlistId;
+      });
+    },
+
+    addToWishlist: (state, action) => {
+      state.current = state.current.push(action.payload);
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -84,10 +96,10 @@ const wishlistSlice = createSlice({
       })
       .addCase(removeWishlistSync.fulfilled, (state, action) => {
         state.loading = false;
-        const { userId, productId } = action.payload;
-        state.current = state.current.filter((wishlist) => {
-          return wishlist.userId !== userId && wishlist.productId !== productId;
-        });
+        const wishlistId = action.payload;
+        state.current = state.current.filter(
+          (wishlist) => wishlist._id !== wishlistId,
+        );
       })
 
       //! this is only testing
@@ -106,4 +118,5 @@ const wishlistSlice = createSlice({
   },
 });
 
+export const { removeWishlist } = wishlistSlice.reducer;
 export default wishlistSlice.reducer;

@@ -7,6 +7,7 @@ import style from "./wishlist.module.scss";
 //import logo
 import pending from "../../assets/img/pending.svg";
 import ItemWishlist from "./ItemWishlist";
+import ListCategory from "../browse/listCategory";
 
 const Wishlist = () => {
   const wishlist = useSelector((state) => state.wishlists.current);
@@ -24,19 +25,23 @@ const Wishlist = () => {
 
   return (
     <>
-      {console.log(wishlist)}
       <SubNav />
-      <div className={style.container}>
-        <h1>this is wish list page</h1>
-
-        {loadingWishlist ? (
-          <p>
-            <img src={pending} alt="pending" />
-          </p>
-        ) : (
-          wishlist.map((item) => <ItemWishlist key={item._id} data={item} />)
-        )}
-      </div>
+      <section className={style.section}>
+        <div className={style.wrapper}>
+          <ul className={style.content}>
+            {loadingWishlist ? (
+              <p>
+                <img src={pending} alt="pending" />
+              </p>
+            ) : (
+              wishlist.map((item) => (
+                <ItemWishlist key={item._id} data={item} />
+              ))
+            )}
+          </ul>
+          <ListCategory className={style.category} />
+        </div>
+      </section>
     </>
   );
 };

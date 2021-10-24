@@ -24,7 +24,7 @@ const productSlices = createSlice({
   name: "products",
   initialState,
   reducers: {
-    addWishlist: (state, action) => {
+    addWishlistInProduct: (state, action) => {
       state.current = state.current.filter((item) =>
         item.wishlist === action.payload.productId
           ? { ...item, isInWishlist: true }
@@ -32,7 +32,7 @@ const productSlices = createSlice({
       );
     },
 
-    removeWishlist: (state, action) => {
+    removeWishlistInProduct: (state, action) => {
       state.current = state.current.filter((item) =>
         item.wishlist === action.payload.productId
           ? { ...item, isInWishlist: false }
@@ -40,7 +40,7 @@ const productSlices = createSlice({
       );
     },
 
-    purchase: (state, action) => {
+    purchaseInProduct: (state, action) => {
       state.current = state.current.filter((item) =>
         item.purchase === action.payload.productId
           ? { ...item, isPurchase: false }
@@ -65,6 +65,10 @@ const productSlices = createSlice({
   },
 });
 
-export const { addWishlist, removeWishlist, purchase } = productSlices.actions;
+export const {
+  addWishlistInProduct,
+  removeWishlistInProduct,
+  purchaseInProduct,
+} = productSlices.actions;
 
 export default productSlices.reducer;

@@ -6,7 +6,6 @@ exports.wishlistGetByUserId = async (req, res) => {
     const userId = req.params.userId;
     const findWishlist = await WishlistModel.find({ userId }).populate({
       path: "product",
-      select: ["_id", "name"],
     });
 
     res.status(200).send(findWishlist);
@@ -36,7 +35,27 @@ exports.addWishlist = async (req, res) => {
     });
 
     const saveWishlist = await wishlist.save();
-    res.status(200).send(wishlist);
+    const sendWishlist = await WishlistModel.aggregate([
+      {
+        $match: {
+          $and: [
+            { product: mongoose.Types.ObjectId(productId) },
+            { user: mongoose.Types.ObjectId(userId) },
+          ],
+        },
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "product",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      { $unwind: "$product" },
+    ]).then((wishlist) => wishlist[0]);
+
+    res.status(200).send(sendWishlist);
   } catch (error) {
     res.status(400).send({ message: error });
   }
@@ -45,7 +64,6 @@ exports.addWishlist = async (req, res) => {
 exports.removeWishlist = async (req, res) => {
   try {
     const { id } = req.body;
-    console.log(req.body);
     //find wishlist and delete
     const removeWishlist = await WishlistModel.deleteOne({
       _id: id,

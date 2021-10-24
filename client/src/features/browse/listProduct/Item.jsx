@@ -1,9 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+// import redux
 import { addWishlistSync } from "../../../app/wishlistsSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+//import style
+import style from "./Item.module.scss";
+import formatterPrice from "../../../helper/formatPrice";
 
 const Item = ({ data }) => {
   const dispatch = useDispatch();
@@ -20,15 +24,18 @@ const Item = ({ data }) => {
 
   return (
     <>
-      <Link to={`/store/product/${data._id}`}>
-        <p>{data.name}</p>
-      </Link>
+      <div className={style.item_wrapper}>
+        <Link to={`/store/product/${data._id}`}>
+          <p>{data.name}</p>
+          <p>{formatterPrice(data.price)}</p>
+        </Link>
 
-      {loadingAddWishlist ? (
-        "...loading"
-      ) : (
-        <button onClick={handleAddToWishlist}>Add</button>
-      )}
+        {loadingAddWishlist ? (
+          "...loading"
+        ) : (
+          <button onClick={handleAddToWishlist}>Add</button>
+        )}
+      </div>
     </>
   );
 };

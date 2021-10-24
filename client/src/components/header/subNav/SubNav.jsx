@@ -15,6 +15,7 @@ const SubNav = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const countWishlist = useSelector((state) => state.wishlists.count);
+  const wishlist = useSelector((state) => state.wishlists.current);
   const [search, setSearch] = useState("");
   const typingTimeoutRef = useRef(null);
 
@@ -36,7 +37,7 @@ const SubNav = () => {
 
     fetchCountWishList();
     return;
-  }, [dispatch]);
+  }, [dispatch, wishlist]);
 
   const handleSearchBtn = (e) => {
     console.log("hello my name is Khang");

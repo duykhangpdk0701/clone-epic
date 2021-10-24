@@ -19,9 +19,6 @@ router.get("/", async (req, res) => {
                     user: mongoose.Types.ObjectId("6161849a4c03b47a614d015e"),
                   },
                   { $expr: { $eq: ["$_id", "$isInWishlist.product"] } },
-                  // {
-                  //   product: "$product",
-                  // },
                 ],
               },
             },

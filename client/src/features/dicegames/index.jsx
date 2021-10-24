@@ -13,6 +13,20 @@ import Footer from "../../components/footer";
 const Dicegames = () => {
   const match = useRouteMatch();
 
+  const request = window.indexedDB.open("MyTestDatabase", 3);
+
+  request.onerror = (event) => {
+    console.log(event);
+  };
+
+  request.onupgradeneeded = (event) => {
+    const db = event.target.result;
+    const objectStore = db.createObjectStore("customer", { keyPath: "ssn" });
+
+    objectStore.createIndex("name", "khang", { unique: true });
+  };
+  console.log(request);
+
   return (
     <>
       <Nav />

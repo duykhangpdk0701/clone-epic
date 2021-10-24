@@ -1,5 +1,24 @@
 @import "../../style/color";
 
-.container {
+.section {
   min-height: 100vh;
+}
+
+.wrapper {
+  width: 75%;
+  margin: auto;
+  display: flex;
+}
+
+.content {
+  flex-basis: calc(100% - 245px);
+  list-style: none;
+  padding-right: 15px;
+}
+
+.category {
+  flex-basis: 245px;
+}
+.item {
+  width: 100%;
 }
